@@ -1,6 +1,4 @@
 import argparse
-import sys
-import json
 
 from commanded.utils import as_obj
 
