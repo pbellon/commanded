@@ -10,7 +10,7 @@ import io
 class FakeApi:
     factor = 3
 
-    @command(name='do', args=(command_arg('a', nargs=1, type=int),))
+    @command(name='do', args=(command_arg('a', nargs=1, type=int)))
     def do_stuff(self, a=[1]):
         return a[0] * self.factor
 
@@ -22,7 +22,7 @@ class FakeApi:
         command_arg('-f', '--file', type=argparse.FileType('r')),
     ))
     def read(self, file):
-        return ("".join(file)).trim()
+        return ("".join(file)).strip()
 
 class TestCommandedApi(unittest.TestCase):
     def setUp(self):
@@ -31,6 +31,9 @@ class TestCommandedApi(unittest.TestCase):
         self.file_path = path.join(test_dir, 'infile.txt')
         self.file = io.open(self.file_path, 'r')
         self.file_content = self.file.read()
+
+    def tearDown(self):
+        self.file.close()
 
     def test_parse_args(self):
         with patch.object(sys, 'argv', ['fake', 'do', '3']):
