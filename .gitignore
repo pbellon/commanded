@@ -1,0 +1,10 @@
+# vim files
+*.swo
+*.swp
+*.swn
+# compiled & build files
+__pycache__/
+*.pyc
+build/
+dist/
+*.egg-info/
