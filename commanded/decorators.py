@@ -42,7 +42,10 @@ class Command(object):
         for arg in self.args:
             argname = arg.get_name()
             if getattr(args, argname, False):
-                kwargs[argname] = getattr(args, argname)
+                attr = getattr(args, argname)
+                if arg.kwargs['nargs'] and arg.kwargs['nargs'] is 1:
+                    attr = attr[0]
+                kwargs[argname] = attr
         return kwargs
 
 def command(name='', help=None, args=list()):
